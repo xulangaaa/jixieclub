@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+            background-color: #e9eef4;
+            min-width: 1400px;
+        }
+
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+
+        .daohang{
+            margin: 0 auto;
+            height: 100px;
+            background-color: #fff;
+        }
+
+        .daohang div{
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 100px;
+        }
+
+        .left div {
+            float: right;
+            margin-right: 30px;
+        }
+
+        .right div{
+            float: right;
+            margin-left: 30px;
+        }
+
+        #u_img{
+            height: 50px;
+            width: 50px;
+            float: left;
+            margin-top: 20px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .daohang div a{
+            text-decoration: none;
+            color: #666;
+        }
+        .daohang div a:hover{
+            color: #aaf;
+        }
+
+        #tijiaobutton{
+            border: none;
+            background-color: #fff;
+            color: #666;
+            font-size: 14px;
+        }
+        #tijiaobutton:hover{
+            cursor: pointer;
+            color:#aaf
+        }
+
+        .daohang img{
+            width: 100px;
+            display: block;
+        }
+
+        .sousuo{
+            border: 1px solid #888;
+            height: 35px;
+            background-color: #eee;
+            border-radius: 5px;
+            color: #888;
+        }
+
+        .xinximianban{
+            position: absolute;
+            width: 160px;
+            min-height: 250px;
+            z-index: 2;
+            background-color: #fff;
+            border: 1px solid #aaaaaa;
+            border-top: none;
+            border-radius: 10px;
+            display: none;
+        }
+        .xinximianban div{
+            line-height: 30px;
+            text-align: center;
+            margin: 5px 0;
+            font-size: 15px;
+        }
+
+        .bottoms{
+            height: 160px;
+            width: 100%;
+            background-color: #2d3237;
+        }
+
+        .bottoms div a{
+            text-decoration: none;
+            font-size: 14px;
+            color: #fff;
+            opacity: 0.75;
+        }
+        .bottoms div a:hover{
+            opacity: 1;
+        }
+
+        .bottoms-order{
+            height: 20px;
+            line-height: 20px;
+        }
+        .bottoms-order div{
+            float: left;
+            margin-left: 20px;
+        }
+
+        .erweima {
+            position: relative;
+            width: 120px;
+            float: right;
+            top: 10%;
+            right: 10%;
+            text-align: center;
+        }
+    </style>
+    {% load staticfiles %}
+    <link REL="icon" HREF="{% static 'images/my_logo1.ico' %}"/>
+    <script src="/static/js/jquery.min.js"></script>
+
+    {% block head %}{% endblock head %}
+</head>
+<body>
+<div>
+    <div class="daohang">
+        <div class="right" id="tihuan" style="display: none">
+            {% for i in userobj %}
+                <div id="username" style="display: none">{{ i.u_name}}</div>
+                <div id="userquanxian" style="display: none">{{ i.quanxian}}</div>
+                <div style="font-size: 16px;margin-right: 100px">
+                    <a id="usename" href="" style="font-size: 16px">{{ i.u_nicheng }}</a>
+                    <img id="u_img" src="{{ i.u_img }}" style="margin-right: 10px">
+                    <input title="" type="text" id="uid" value="{{ i.id }}" style="display: none">
+                </div>
+            {% endfor %}
+            <div style="margin-right: 60px"><input class="sousuo" id="sousuo1" title="" type="search" value="搜索"></div>
+        </div>
+        <div class="xinximianban">
+            <div style="margin-top: 25px"><a href="/bkmanage/?mudidi=jibenziliao" target="_blank">基本资料</a></div>
+            <div><a href="/bkmanage/?mudidi=wodetiezi" target="_blank">我的帖子</a></div>
+            <div><a href="/write/" target="_blank">创建帖子</a></div>
+            <div><a href="/bkmanage/?mudidi=wodeshouchang" target="_blank">我的收藏</a></div>
+            <div><a href="/bkmanage/?mudidi=wodexiaoxi" target="_blank">我的消息</a></div>
+            <div><a href="/bkmanage/?mudidi=yonghuguanli" target="_blank" id="yonghuguanlijiekou" style="display: none">后台管理</a></div>
+            <form action="/denglu/" method="get">
+                {% for i in userobj %}
+                <input style="display: none" name="zhuxiao" type="text" value="{{ i.u_name }}" title="">
+                <div id="zhuxiaoa" style="text-align: right;margin-top: 5px"><input id="tijiaobutton" type="submit" style="" value="注销" title=""></div>
+                {% endfor %}
+            </form>
+        </div>
+
+        <div class="right" id="beitihuan">
+            <div style="margin-right: 200px"><a href="/zhuce/">注册</a></div>
+            <div><a href="/denglu/">登陆</a></div>
+            <div style="margin-right: 40px"><input class="sousuo" id="sousuo2" title="" type="search" value="搜索"></div>
+        </div>
+        <div class="left" style="height: 100px">
+            <div style="margin-right: 160px;min-width: 300px"><a href="">&nbsp;</a></div>
+            <div><a href="/luntan/">论坛</a></div>
+            <div><a href="/index/">首页</a></div>
+            <div style="margin-right: 20px;margin-left: 0">
+                <img src="/static/images/my_logo2.jpg">
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+    {% block body %}{% endblock body %}
+
+        <div class="bottoms">
+        <div style="width: 600px;position: relative;top: 25%;left: 15%;float: left">
+            <div class="bottoms-order">
+                <div><a href="">RSS</a></div>
+                <div><a href="">活跃会员</a></div>
+                <div><a href="">帮忙抓虫</a></div>
+                <div><a href="">微博</a></div>
+                <div><a href="">Twitter</a></div>
+                <div><a href="">关于我们(About Us)</a></div>
+            </div>
+            <div style="clear: both;"></div>
+            <div style="margin-left: 30px;margin-top: 10px"><a href="">建立最好的机械交流社区俱乐部</a></div>
+            <div style="margin-left: 30px;margin-top: 10px"><a href="">欢迎加入我们</a></div>
+        </div>
+        <div class="erweima">
+            <div><img style="width: 80px;height: 80px;display: block;margin: 0 auto" src="/static/images/my_erweima.jpg"></div>
+            <div style="margin-top: 10px"><a href="">微信扫一扫</a></div>
+            <div><a href="">关注机械俱乐部</a></div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    sousuoobj1 = document.getElementById('sousuo1');
+    sousuoobj2 = document.getElementById('sousuo2');
+    sousuoobj1.onfocus=function(){
+        this.value='';
+        this.style.border='1px solid #88f'
+    };
+    sousuoobj1.onblur=function(){
+        this.value='搜索';
+        this.style.border='1px solid #888'
+    };
+    sousuoobj2.onfocus=function(){
+        this.value='';
+        this.style.border='1px solid #88f'
+    };
+    sousuoobj2.onblur=function(){
+        this.value='搜索';
+        this.style.border='1px solid #888'
+    };
+
+    u_imgobj = $('#u_img');
+    xinximianbanobj = $('.xinximianban');
+    bothobj = $('#u_img, .xinximianban');
+    bothobj.mouseenter(function () {
+        sss = u_imgobj.position();
+        leftnow = sss.left;
+        toptnow = sss.top;
+        leftnow -= 55;
+        toptnow += 70;
+        xinximianbanobj.css({top:toptnow+'px',left:leftnow+'px',display:'block'})
+
+    });
+    bothobj.mouseleave(function () {
+        xinximianbanobj.css({display:'none'})
+    });
+
+
+    $(window).load(function () {
+
+        userobj=document.getElementById('username');
+        if( userobj!==null){
+            tihuanobj = document.getElementById('tihuan');
+            beitihuanobj = document.getElementById('beitihuan');
+            tihuanobj.style.display='block';
+            beitihuanobj.style.display='none';
+        }
+
+        useobj = $('#usename');
+        nicheng = useobj[0].innerHTML;
+        if(nicheng==='' || nicheng==='None'){
+            useobj.hide();
+            name = $('#username')[0].innerHTML;
+            str="<a style=\"font-size: 16px\">"+name+"</a>";
+            useobj.after(str);
+        }
+
+        quanxian = $('#userquanxian')[0].innerHTML;
+        if(quanxian <= 2){
+            $('#yonghuguanlijiekou').show()
+        }
+        else {
+            $('#yonghuguanlijiekou').hide()
+        }
+    });
+
+
+</script>
+{% block script %}{% endblock script %}
+</html>

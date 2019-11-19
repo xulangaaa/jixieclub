@@ -1,0 +1,175 @@
+{% extends 'model.html' %}
+{% block head %}
+    <style>
+     .denglu{
+            height: 600px;
+            width: 1000px;
+            background-color: #ffffff;
+            opacity: 0.8;
+            margin: 60px auto;
+            outline: solid 10px #CBFEFF;
+            -moz-outline-radius: 10px;
+            border-radius: 5px;
+        }
+        .denglu div{
+            text-align: center;
+        }
+        .dlleft{
+            width: 499px;
+            height: 500px;
+            float: left;
+            border-right: solid 1px #888;
+            margin-top: 30px;
+        }
+        .dlleft div{
+            color: #666;
+            margin-top: 10px;
+        }
+        .dlright{
+            width: 499px;
+            height: 500px;
+            float: left;
+            border-left: solid 1px #888;
+            margin-top: 30px;
+        }
+        .dlright div input{
+            border: 1px solid #888;
+            height: 30px;
+            width: 300px;
+            background-color: #eee;
+            border-radius: 5px;
+            color: #555;
+        }
+        .inputer{
+            height: 20px;
+            margin: 5px auto;
+            font-size: 13px;
+            /* color: #f66495; */
+            line-height: 20px;
+            color: #fff;
+        }
+
+    </style>
+    <script src="/static/js/jquery.min.js"></script>
+{% endblock head %}
+
+{% block body %}
+    <form action="/denglu/" method="post">
+    <div class="denglu">
+        <div style="font-size: 38px;font-weight: 500;color: #555;height: 50px">登录</div>
+        <div class="dlleft">
+            <div style="margin-top: 15%;"><img style="height: 200px;width: 200px;display: block;margin: 0 auto" src="/static/images/my_erweima.jpg"></div>
+            <div>请使用微信客户端</div>
+            <div>扫码登录</div>
+            <div>或扫码下载APP</div>
+        </div>
+        <div class="dlright">
+            <div style="margin-top: 20%"><input name="user_denglu" id="i2" title="" type="text" value="请输入您的用户名"></div>
+            <div class="inputer">请输入注册时用的用户名呀</div>
+            <div><input name="password_denglu" id="i3" title="" type="text" value="请输入您的密码"></div>
+            <div class="inputer">喵，你没输入密码么？</div>
+            <div class="inputer">用户名或密码错误</div>
+            <div style="float: left;margin-left: 20%;"><input id="button1" style="width: 126px;background-color: #00a7de;color: #eee" title="" type="submit" value="确定"></div>
+            <div style="float: left;margin-left: 10%;"><a href="/zhuce/" style="text-decoration: none"><input id="button2" style="width: 126px" title="" type="button" value="注册"></a></div>
+        </div>
+    </div>
+    </form>
+
+{% endblock body %}
+
+{% block script %}
+<script>
+
+    botton1obg1 = document.getElementById('button1');
+    botton1obg1.onmouseover=function(){
+        this.style.backgroundColor='#00bee7'
+    };
+    botton1obg1.onmouseout=function(){
+        this.style.backgroundColor='#00a7de'
+    };
+
+    botton1obg2 = document.getElementById('button2');
+    botton1obg2.onmouseover=function(){
+        this.style.backgroundColor='#ccc'
+    };
+    botton1obg2.onmouseout=function(){
+        this.style.backgroundColor='#eee'
+    };
+
+    inputobj2 = document.getElementById('i2');
+    inputerobjs = document.getElementsByClassName('inputer');
+    inputobj2.onfocus = function(){
+        v1 = this.value;
+        if(v1==='请输入您的用户名'){
+            this.value='';
+        }
+    };
+    inputobj2.onblur = function (){
+        v2 = this.value;
+        if(v2.length<8){
+            if(v2===''){
+                this.value='请输入您的用户名';
+                inputerobjs[0].style.color='#f66495'
+            }
+            else {
+                inputerobjs[0].style.color='#f66495'
+            }
+        }
+        else {
+            inputerobjs[0].style.color=''
+        }
+    };
+
+    inputobj3 = document.getElementById('i3');
+    inputobj3.onfocus = function(){
+        v3 = this.value;
+        if(v3==='请输入您的密码'){
+            this.value='';
+        }
+        this.type='password'
+    };
+    inputobj3.onblur = function(){
+        v4 = this.value;
+        if (v4.length===0){
+            this.type='text';
+            this.value='请输入您的密码';
+            inputerobjs[1].style.color='#f66495'
+        }
+        else {
+            inputerobjs[1].style.color='';
+            inputerobjs[2].style.color='';
+        }
+    };
+
+    botton1obg1.onclick=function () {
+        if(inputerobjs[0].style.color==='' && inputerobjs[1].style.color===''){
+            if(inputobj2.value==='请输入您的用户名' || inputobj3.value==='请输入您的密码'){
+                ffsaf='';
+                return false
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return false
+        }
+    };
+    window.onload=function(){
+        userobj=document.getElementById('user');
+        if(userobj!==null){
+            user=userobj.innerHTML;
+            if( user==='cuowuuser') {
+                inputerobjs[2].style.color = '#f66495'
+            }
+        }
+    };
+
+
+    // 让网页中的文字不能被选中
+    document.body.onselectstart=document.body.ondrag=function(){
+        return false;
+    };
+</script>
+
+{% endblock script %}

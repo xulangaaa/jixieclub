@@ -1,0 +1,503 @@
+{% extends 'model2.html' %}
+{% block head %}
+     <style>
+        .luntan{
+            width: 1000px;
+            margin: 60px auto;
+            border-radius: 5px;
+            background-color: #fff;
+            min-height: 500px;
+        }
+        .luntan_default{
+            width: 850px;
+            margin: 0 auto;
+        }
+        .luntan_default_wenzhang{
+            height: 120px;
+            width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+        .luntan_default_wenzhang div{
+            float:left;
+            margin: 5px 12px;
+            color: #666666;
+        }
+        .luntan_default_wenzhang div img{
+            height: 120px;
+            width: 180px;
+            display: block;
+            border-radius: 5px;
+        }
+        .fenye{
+            height: 50px;
+            color: #888;
+            margin: 60px 20px;
+        }
+        .fenye div{
+            float: left;
+            line-height: 50px;
+            text-align: center;
+        }
+        .yema{
+            text-decoration: none;
+            color: #888;
+        }
+        .yema div{
+            margin: 0 auto;
+            width: 50px;
+        }
+
+        .thistiezi{
+            width: 800px;
+            margin: 0 auto;
+            display: none;
+            padding: 20px;
+        }
+        .tiezi_title span{
+            margin-left: 20px;
+        }
+        .tiezi_main{
+            margin-top: 60px;
+            text-align: center;
+        }
+        .tiezi_main span{
+            margin: 0 30px;
+        }
+
+        .huifupl{
+            cursor: pointer;
+        }
+        .huifup2{
+            cursor: pointer;
+        }
+
+        #pinglunkuang{
+            border: solid 1px #e5e9ef;
+            border-radius: 4px;
+            height: 65px;
+            width: 450px;
+            padding: 5px 10px;
+            outline: none;
+            resize: none;
+            color: #555
+        }
+        #plbutton{
+            height: 72px;
+            width: 70px;
+            background-color: #00a1d6;
+            border: solid 1px #00a1d6;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            color: #fff;
+            padding: 0;
+        }
+
+
+    </style>
+    <script src="/static/js/jquery.min.js"></script>
+{% endblock head %}
+
+
+{% block body %}
+
+    <div class="luntan">
+        <div class="luntan_default" id="luntan_default">
+            <div style="height: 30px"></div>
+            {% for i in tz_defaultobj %}
+            <div class="luntan_default_wenzhang"><a href="/luntan/?tz_id={{ i.id }}" target="_blank"><div style="margin-top: 0">
+                    <div style="display: none">{{ i.id }}</div>
+                    <div style="margin: 0"><img  src="{{ i.tz_img }}"></div>
+                    <div style="height: 20px;margin-top: 10px;line-height: 20px;font-weight: 500;font-size: 18px">{{ i.tz_title }}</div>
+                    <div style="width: 500px;height: 40px;line-height: 20px;font-size: 14px;font-weight: 300;text-indent: 28px">{{ i.tz_text }}. . .  </div>
+                    <div>{{ i.tzu_id.u_name }}</div>
+                    <div>{{ i.tz_riqi }}</div>
+                    <div>浏览：{{ i.tz_liulan }}</div>
+                    <div>回复：{{ i.tz_huifu }}</div>
+                    <div>收藏：{{ i.tz_shoucang }}</div>
+                <div><span class="shanchutz" style="color: #f66495;cursor: pointer;display: none">删除</span></div>
+                </div></a>
+            </div>
+            {% endfor %}
+            <div class="fenye">
+                <div id="page" style="display: none">{{ page }}</div>
+                <div id="yeshu" style="display: none">{{ yeshu }}</div>
+                <a href="/luntan/?page={{ page }}&&pagechange=shangyiye" class="yema"><div style="margin-left: 160px">上一页</div></a>
+                <div class="fenyeyeshu" style="width: 300px;margin-left: 60px"></div>
+                <a href="/luntan/?page={{ page }}&&pagechange=xiayiye" class="yema"><div>下一页</div></a>
+            </div>
+        </div>
+        <div class="thistiezi" id="thistiezi">
+            {% for i in thistiezi %}
+            <div  class="tiezi_title">
+                <div id="tiezi_id" style="display: none">{{ i.id }}</div>
+                <div style="float: left"><img style="width: 60px;height: 60px;display: block" src="{{ i.tz_img }}"></div>
+                <div style="float: left;margin-left: 30px">
+                    <div style="font-size: 20px;font-weight: 500">{{ i.tz_title }}</div>
+                    <div style="font-size: 15px;font-weight: 300;margin-top: 10px">
+                        <span style="margin: 0">作者：{{ i.tzu_id.u_name }}</span>
+                        <span>发帖日期：{{ i.tz_riqi }}</span>
+                        <span>浏览数：{{ i.tz_liulan }}</span>
+                        <span>回复数：{{ i.tz_huifu }}</span>
+                        <span id="shoucangshu">收藏数：{{ i.tz_shoucang }}</span>
+                        <span><img id="shoucang" src="/static/images/weishoucang.jpg" title="点击收藏/取消收藏" style="height: 30px;border-radius: 15px"></span>
+                        <div id="ifshoucang" style="display: none">{{ ifshoucang }}</div>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div class="tiezi_main">
+                <div style="font-size: 20px;font-weight: 500">{{ i.tz_title }}</div>
+                <div  style="font-size: 15px;font-weight: 300;margin-top: 10px">
+                    <span style="margin: 0">作者：{{ i.tzu_id.u_name }}</span>
+                    <span>日期：{{ i.tz_riqi }}</span>
+                </div>
+                <div style="text-align: left;text-indent: 32px;margin-top: 40px;line-height: 30px">{{ i.tz_text }}</div>
+            </div>
+            <div style="height: 1px;background-color: #000;margin: 60px auto;opacity: 0.5"></div>
+            {% endfor %}
+            <div id="pinglun">
+                {% for i in pinglunlist %}
+                <div class="pinglun">
+                    <div class="plid" style="display: none">{{ i.id }}</div>
+                    <div style="float: left"><img style="height: 50px;width: 50px;display: block;border-radius: 50%" src="{{ i.pl_uid.u_img }}"></div>
+                    <div style="float: left;margin-left: 30px">
+                        <div style="color: #fb7299 ">{{ i.pl_uid.u_name }}</div>
+                        <div style="margin: 15px auto">{{ i.pl_text }}</div>
+                        <div style="font-size: 14px;font-weight: 300;opacity: 0.5">
+                            <span>{{ i.pl_riqi }}</span>
+                            <a href="/luntan/?tz_id={{ i.pl_tid.id }}&&dzplid={{ i.id }}&&user={{ userobj.0.id }}&&mudi=dianzhan"><span style="margin-left: 30px">赞：{{ i.pl_dianzhan }}</span></a>
+                            <a><span class="huifupl" style="margin-left: 30px">回复</span></a>
+                            <a><span class="shanchupl" style="margin-left: 30px;color: #f66495;cursor: pointer;display: none">删除</span></a>
+                            <div style="display: none">{{ i.id }}</div>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <div style="height: 1px;background-color: #000;opacity: 0.2;margin: 20px auto"></div>
+                {% endfor %}
+                <div id="nopinglun" style="color: #fb7299;display: none">该帖子暂时没有评论哟，快来抢个沙发吧！</div>
+                <div style="height: 1px;background-color: #000;opacity: 0.2;margin: 20px auto"></div>
+            {% for i in plhuifulist %}
+                {% for s in i %}
+                    <div class="huifu" style="margin: 10px 80px">
+                        <div class="hfid" style="display: none">{{ s.id }}</div>
+                        <div class="hf_plid" style="display: none">{{ s.hf_pinglunid.id }}</div>
+                        <div style="float: left"><img style="height: 25px;width: 25px;display: block;border-radius: 50%" src="{{ s.hf_uid.u_img }}"></div>
+                        <div style="float: left;margin-left: 30px">
+                            <div style="color: #fb7299 ">
+                                <span>{{ s.hf_uid.u_name }}</span>
+                                <span style="margin: 0 5px">@
+                                <span class="beiat">{{ s.hf_huifu_uname }}</span></span>
+                            </div>
+                            <div style="margin: 10px auto">{{ s.hf_text }}</div>
+                            <div style="font-size: 14px;font-weight: 300;opacity: 0.5">
+                                <span>{{ s.hf_riqi }}</span>
+                                {% for t in thistiezi %}
+                                <a href="/luntan/?pl_id={{ s.hf_pinglunid.id }}&&dzhfid={{ s.id }}&&user={{ userobj.0.id }}&&mudi=dianzhan&&tz_id={{ t.id }}"><span style="margin-left: 30px">赞：{{ s.hf_dianzhan }}</span></a>
+                                <a><span class="huifup2" style="margin-left: 30px">回复</span></a>
+                                <a><span class="shanchuhf" style="margin-left: 30px;color: #f66495;cursor: pointer;display: none">删除</span></a>
+                                <div style="display: none">{{ s.id }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            </div>
+            <div id="xiepinglun" style="margin-top: 30px">
+                <div id="nologin" style="color: #fb7299 ;display: none">喵，您还没有登陆，不能写评论哦，请先登陆</div>
+                <div id="xpl" style="display: none">
+                    {% for i in userobj %}
+                    <div style="float: left"><img style="height: 50px;width: 50px;display: block;border-radius: 50%" src="{{ i.u_img }}"></div>
+                    <div><input name="pl_uid" title="" style="display: none" type="text" value="{{ i.id }}"></div>
+                    {% endfor %}
+                    <div style="float: left;margin-left: 30px">
+                        <textarea id="pinglunkuang" name="pinglun" placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。" title=""></textarea>
+                    </div>
+                    {% for i in thistiezi %}
+                    <div><input id="plinp" name="pl_tid" title="" style="display: none" type="text" value="{{ i.id }}"></div>
+                    {% endfor %}
+                    <div style="float: left;margin-left: 30px;margin-top: 3px">
+                        <input id="plbutton" type="button" value="发表评论">
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <div id="pinglunjiance" style="color: #fb7299;display: none;margin-left: 80px">喵，你好像忘了输入评论内容了</div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block script %}
+<script>
+
+    ltwz_defaultobgs = document.getElementsByClassName('luntan_default_wenzhang');
+    for(i=0;i<ltwz_defaultobgs.length;i++){
+        ltwz_defaultobg = ltwz_defaultobgs[i];
+        ltwz_defaultobg.onmouseover=function(){
+            this.style.transform='scale(1,1.02)';
+            this.style.border='2px solid #35a2f4';
+            this.style.boxShadow='5px 8px 10px #888';
+        };
+        ltwz_defaultobg.onmouseout=function(){
+            this.style.transform='scale(1,1)';
+            this.style.border='none';
+            this.style.boxShadow='';
+        };
+    }
+
+    // 关于评论框的事件
+    pinglunkuangobj = document.getElementById('pinglunkuang');
+    pinglunkuangobj.onfocus=function () {
+        this.style.borderColor='#00a1d6';
+        this.placeholder='';
+        this.style.color='#000';
+        this.style.fontSize='15px';
+        this.style.fontWeight='500';
+    };
+    pinglunkuangobj.onblur=function() {
+        this.style.borderColor='#e5e9ef';
+        v1 = this.value;
+        if(v1 === ''){
+            this.placeholder='请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。';
+            this.style.color='#aaa';
+            this.style.fontSize='13px';
+        this.style.fontWeight='';
+        }
+        else {
+            document.getElementById('pinglunjiance').style.display='none';
+        }
+    };
+    plbuttonobj = document.getElementById('plbutton');
+    plbuttonobj.onclick=function () {
+        var v = document.getElementById('pinglunkuang').value;
+        if(v === '' || v === '请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。'){
+            document.getElementById('pinglunjiance').style.display='block';
+            return false
+        }
+        else {
+            thispinglunobj = $(this).parents('div[class=pinglun]');
+            pinglun = $('#pinglunkuang').val();
+            pl_uid = $('input[name="pl_uid"]').val();
+            pl_tid = $('#plinp').val();
+            plmidi = thispinglunobj.attr('plmidi');
+            plhfid = thispinglunobj.attr('plhfid');
+            plplid = thispinglunobj.attr('plplid');
+            dataup = new FormData;
+            dataup.append('pinglun',pinglun);
+            dataup.append('pl_uid',pl_uid);
+            dataup.append('pl_tid',pl_tid);
+            dataup.append('plmidi',plmidi);
+            dataup.append('plhfid',plhfid);
+            dataup.append('plplid',plplid);
+            $.ajax({
+                url:'/luntan/',
+                type:'Post',
+                processData: false,
+                contentType: false,
+                data:dataup,
+                success:function (r) {
+                    if (r === 'pinglunsuccessful') {
+                        window.location.reload();
+                    }
+                    else {
+                        alert('评论失败');
+                    }
+                }
+            })
+        }
+    };
+
+    //回复
+    xiepinglunobj = $('#xiepinglun');
+    huifuobjs1 = $('.huifupl').click(function () {
+        thispinglunobj = $(this).parents('div[class=pinglun]');
+        thishfid = thispinglunobj.first().children()[0].innerHTML;
+        thispinglunobj.attr({plmidi:'plpl',plplid:thishfid});
+        thispinglunobj.append(xiepinglunobj);
+    });
+    huifuobjs2 = $('.huifup2').click(function () {
+        thispinglunobj = $(this).parents('div[class=pinglun]');
+        thishfidobj = $(this).parents('div[class=huifu]');
+        thishfid = thishfidobj.first().children()[0].innerHTML;
+        thispinglunobj.attr({plmidi:'plhf',plhfid:thishfid});
+        thispinglunobj.append(xiepinglunobj);
+    });
+
+    //点击收藏
+    $('#shoucang').click(function () {
+        uid = $('#uid').val();
+        tid = $('#tiezi_id')[0].innerHTML;
+        $.post('/luntan/',{
+            uid:uid,
+            tid:tid,
+            mudi:'shoucang'
+        },function (r) {
+            shoucangobj = $('#shoucangshu')[0];
+            val = shoucangobj.innerHTML;
+            val = val.split('：');
+            val1 = val[0];
+            val2 = val[1];
+            val2 = parseInt(val2);
+            if(r==='shoucangsucessful'){
+                alert('收藏成功');
+                val2 +=1;
+                val = val1 +'：' + val2;
+                shoucangobj.innerHTML=val;
+                $('#shoucang').attr({src:'/static/images/yishoucang.jpg'})
+            }
+            else if(r==='quxiaoshoucangsucessful'){
+                alert('取消收藏成功');
+                val2 -=1;
+                val = val1 + '：' + val2;
+                shoucangobj.innerHTML=val;
+                $('#shoucang').attr({src:'/static/images/weishoucang.jpg'})
+            }
+            else {
+                alert('请求失败');
+            }
+        });
+    });
+
+    //点击删除帖子
+    $('.shanchutz').click(function () {
+        tieziid = $(this).parent().parent()[0].firstElementChild.innerHTML;
+        $.post('/luntan/',{
+            tieziid:tieziid,
+            mudi:'shanchutz'
+        },function (r) {
+            if(r==='shanchutzsuccessful'){
+                window.location.reload();
+            }
+            else {
+                alert('删除失败!')
+            }
+        });
+        return false
+    });
+
+    //点击删除评论
+    $('.shanchupl').click(function () {
+        pinglunid = $(this).parent().next()[0].innerHTML;
+        $.post('/luntan/',{
+            pinglunid:pinglunid,
+            mudi:'shanchupl'
+        },function (r) {
+            if(r==='shanchuplsuccessful'){
+                window.location.reload();
+            }
+            else {
+                alert('删除失败!')
+            }
+        });
+    });
+
+    //点击删除回复
+    $('.shanchuhf').click(function () {
+        huifuid = $(this).parent().next()[0].innerHTML;
+        $.post('/luntan/',{
+            huifuid:huifuid,
+            mudi:'shanchuhf'
+        },function (r) {
+            if(r==='shanchuhfsuccessful'){
+                window.location.reload();
+            }
+            else {
+                alert('删除失败!')
+            }
+        });
+    });
+
+    window.onload=function() {
+        $('#xiepinglun').attr({plmudi:'pltz'});
+        //判断是否登陆补
+        userobj = document.getElementById('username');
+        if (userobj) {
+            $('#xpl').show();
+            $('#nologin').hide();
+        }
+        else {
+            $('#xpl').hide();
+            $('#nologin').hide();
+        }
+        // 判断分页及页面跳转
+        fenyeyeshuobj = document.getElementsByClassName('fenyeyeshu');
+        page = document.getElementById('page').innerHTML;
+        yeshu = document.getElementById('yeshu').innerHTML;
+        if(page !== 'None' && page !== ''){
+            for (i=1;i<=yeshu;i++){
+            aobj = document.createElement('a');
+            divobj = document.createElement('div');
+            divobj.innerHTML=i;
+            if(i == page){
+                divobj.style.borderRadius='30px';
+                divobj.style.border='1px solid ';
+            }
+            aobj.appendChild(divobj);
+            aobj.classList.add('yema');
+            aobj.href='/luntan/?page='+i;
+            fenyeyeshuobj[0].appendChild(aobj);
+            }
+        }
+        else {
+            document.getElementById('luntan_default').style.display='none';
+            document.getElementById('thistiezi').style.display='block';
+        }
+
+        // 根据子元素数目判断是否有评论  为2则没有评论，>2则有
+        plobj = document.getElementById('pinglun');
+        if(plobj.childElementCount === 2){
+            document.getElementById('nopinglun').style.display='block'
+        }
+        else {
+            $('.hf_plid').each(function () {
+                hf_plid = $(this)[0].innerHTML;
+                thisobj = $(this).parent();
+                $('.plid').each(function () {
+                    plid = $(this)[0].innerHTML;
+                    if(hf_plid===plid){
+                        $(this).parent().append(thisobj)
+                    }
+                })
+            });
+            document.getElementById('nopinglun').style.display='none'
+            }
+            $('.beiat').each(function () {
+                val = $(this)[0].innerHTML;
+                if(val==='None' || val===''){
+                    $(this).parent().hide();
+                }
+            });
+
+        //判断权限
+        quanxian = $('#userquanxian')[0].innerHTML;
+        if(quanxian <= 2){
+            $('.shanchupl').show();
+            $('.shanchuhf').show();
+            $('.shanchutz').show();
+        }
+        else {
+            $('.shanchupl').hide();
+            $('.shanchuhf').hide();
+            $('.shanchutz').hide();
+        }
+
+        //判断该用户是否已经收藏
+        ifshoucang = $('#ifshoucang')[0].innerHTML;
+        if(ifshoucang==='' || ifshoucang==='None'){
+            $('#shoucang').attr({src:'/static/images/weishoucang.jpg'})
+        }
+        else {
+            $('#shoucang').attr({src:'/static/images/yishoucang.jpg'})
+        }
+
+    };
+
+
+</script>
+
+{% endblock script %}

@@ -1,0 +1,589 @@
+{% extends 'model2.html' %}
+{% block head %}
+    <style>
+        .backmanage{
+            width: 1000px;
+            margin: 60px auto;
+            background-color: #fff;
+            border: 2px solid #aaa;
+            border-radius: 10px;
+            padding: 50px;
+            position: relative;
+        }
+
+        .left-order{
+            float: left;
+        }
+        .left-order div{
+            height: 50px;
+            width: 120px;
+            margin: 30px 0;
+            font-size: 22px;
+            cursor: pointer;
+            border-bottom: 1px solid;
+        }
+        .left-order div:hover{
+            color: #aaf;
+        }
+
+        /* 个人信息样式开始 */
+        .right-main1{
+            width: 800px;
+            border-left: 1px solid;
+            float: left;
+            margin-left: 50px;
+            display: none;
+            min-height: 400px;
+        }
+        .right-main1 div{
+            margin: 20px;
+        }
+        .right-main1 span{
+            width: 80px;
+            text-align: right;
+            float: left;
+            line-height: 35px;
+            margin-right: 20px;
+        }
+
+        .right-main1 input{
+            border: 1px solid #888;
+            height: 30px;
+            width: 200px;
+            background-color: #eee;
+            border-radius: 5px;
+            color: #555;
+            text-indent: 10px;
+        }
+
+        #baochun{
+            height: 35px;
+            width: 150px;
+            background-color: #35a2f4;
+            color: #fff;
+            border-radius: 5px;
+        }
+        #qianming{
+            border: solid 1px #333;
+            border-radius: 4px;
+            height: 80px;
+            width: 400px;
+            padding: 5px 10px;
+            outline: none;
+            resize: none;
+            background-color: #eee;
+            color: #555;
+        }
+        /* 个人信息样式结束 */
+
+        /* 我的帖子样式开始 */
+        .right-main2{
+            width: 800px;
+            border-left: 1px solid;
+            display: none;
+            float: left;
+            margin-left: 50px;
+            min-height: 400px;
+        }
+        .wenzhang{
+            height: 120px;
+            width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .wenzhang div{
+            float:left;
+            margin: 5px 10px;
+            color: #666666;
+        }
+
+        .wenzhang div img{
+            height: 120px;
+            width: 180px;
+            display: block;
+            border-radius: 5px;
+        }
+
+        /* 我的帖子样式结束 */
+
+        /* 我的收藏样式开始 */
+        .right-main3{
+            width: 800px;
+            border-left: 1px solid;
+            display: none;
+            float: left;
+            margin-left: 50px;
+            min-height: 400px;
+        }
+        /* 我的收藏样式结束 */
+
+        /* 我的消息样式开始 */
+        .right-main4{
+            width: 800px;
+            border-left: 1px solid;
+            display: none;
+            float: left;
+            margin-left: 50px;
+            min-height: 400px;
+        }
+
+        .xiaoxi{
+            width: 700px;
+            margin: 30px auto;
+            background-color: #ebf5ff;
+            min-height: 80px;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        /* 我的消息样式结束 */
+
+        /* 用户管理样式开始 */
+        .right-main5{
+            width: 800px;
+            border-left: 1px solid;
+            display: none;
+            float: left;
+            margin-left: 50px;
+            min-height: 400px;
+        }
+
+        .htglorder span{
+            font-size: 20px;
+            font-weight: 500;
+            margin: 20px;
+            opacity: 0.7;
+            width: 100px;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .htglorder span:hover{
+            color: #9999ff;
+        }
+
+        .htglmain{
+            margin-left: 40px;
+        }
+        /* 用户管理样式结束 */
+    </style>
+{% endblock head %}
+
+
+{% block body %}
+
+    <div class="backmanage">
+        <div id="mudidi" style="display: none">{{ mudidi }}</div>
+        <div class="left-order">
+            <div class="order" id="jibenziliao">个人资料</div>
+            <div class="order" id="wodetiezi">我的帖子</div>
+            <div class="order" id="wodeshouchang">我的收藏</div>
+            <div class="order" id="wodexiaoxi">我的消息</div>
+            <div class="order" id="yonghuguanli" style="display: none">后台管理</div>
+        </div>
+        <div class="right-main1 qiuhuan">
+            {% for i in userobj %}
+                <div style="margin-top: 0">
+                    <span>用户ID:</span>
+                    <input title="" type="text" id="u_id" style="border: none;background-color: #fff" value="{{ i.id }}" readonly>
+                </div>
+                <div>
+                    <span>用户名:</span>
+                    <input title="" type="text" style="border: none;background-color: #fff" value="{{ i.u_name }}" readonly>
+                </div>
+                <div>
+                    <span>用户昵称:</span>
+                    <input  title="" type="text" id="nicheng" value="{{ i.u_nicheng }}">
+                </div>
+                <div>
+                    <span>用户头像:</span>
+                    <input  title="" type="file" id="touxiang">
+                </div>
+                <div>
+                    <span>年龄:</span>
+                    <input title="" type="text" id="nianling" value="{{ i.age }}">
+                </div>
+                <div>
+                    <span>性别:</span>
+                    <input title="" type="text" id="xingbie" value="{{ i.sex }}">
+                </div>
+                <div>
+                    <span>电话:</span>
+                    <input title="" type="text" id="dianhua" value="{{ i.tel }}">
+                </div>
+                <div>
+                    <span style="height: 80px;line-height: 80px">我的签名:</span>
+                    <textarea class="rm1"  title="" id="qianming">{{ i.u_gexingqianming }}</textarea>
+                </div>
+                <input title="" type="button" id="baochun" style="margin-left: 30%" value="保存">
+            {% endfor %}
+        </div>
+        <div class="right-main2 qiehuan">
+            {% for i in usertiezi %}
+                <div class="wenzhang">
+                    <div style="margin-top: 0">
+                        <a href="/luntan/?tz_id={{ i.id }}" target="_blank">
+                            <div style="margin: 0"><img  src="{{ i.tz_img }}"></div>
+                            <div style="height: 20px;margin-top: 10px;line-height: 20px;font-weight: 500;font-size: 18px">{{ i.tz_title }}</div>
+                            <div style="width: 500px;height: 40px;line-height: 20px;font-size: 14px;font-weight: 300;text-indent: 28px">{{ i.tz_text }}. . .  </div>
+                            <div>{{ i.tzu_id.u_name }}</div>
+                            <div>{{ i.tz_riqi }}</div>
+                            <div>浏览：{{ i.tz_liulan }}</div>
+                            <div>回复：{{ i.tz_huifu }}</div>
+                            <div>收藏：{{ i.tz_shoucang }}</div>
+                        </a>
+                        <div>
+                        <input title="" type="button" value="删除" class="shanchu" style="border-radius: 5px;background-color: #ccf;cursor: pointer">
+                        <input title="" type="text" value="{{ i.id }}" style="display: none">
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="right-main3 qiehuan">
+            {% for i in usershoucang %}
+                <div class="wenzhang">
+                    <div style="margin-top: 0">
+                        <a href="/luntan/?tz_id={{ i.id }}" target="_blank">
+                            <div style="margin: 0"><img  src="{{ i.tz_img }}"></div>
+                            <div style="height: 20px;margin-top: 10px;line-height: 20px;font-weight: 500;font-size: 18px">{{ i.tz_title }}</div>
+                            <div style="width: 500px;height: 40px;line-height: 20px;font-size: 14px;font-weight: 300;text-indent: 28px">{{ i.tz_text }}. . .  </div>
+                            <div>{{ i.tzu_id.u_name }}</div>
+                            <div>{{ i.tz_riqi }}</div>
+                            <div>浏览：{{ i.tz_liulan }}</div>
+                            <div>回复：{{ i.tz_huifu }}</div>
+                            <div>收藏：{{ i.tz_shoucang }}</div>
+                        </a>
+                        <div>
+                        <input title="" type="button" value="取消收藏" class="quxiaoshouchang" style="border-radius: 5px;background-color: #ccf;cursor: pointer">
+                        <input title="" type="text" value="{{ i.id }}" style="display: none">
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="right-main4 qiehuan">
+            {% for i in xiaoxiobjs %}
+                <div class="xiaoxi">
+                    <div>
+                        <span>{{ i.xx_title }}</span>
+                        <span style="margin-left: 30px;color: #aaa">{{ i.xx_riqi }}</span>
+                    </div>
+                    <div style="margin-top: 10px;color: #888;text-indent: 32px">{{ i.xx_text }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="right-main5 qiehuan">
+            <div class="htglorder">
+                <span class="oneorder" id="yhgl" style="margin-left: 40px">用户管理</span>
+                <span class="oneorder" id="fsxx">发送信息</span>
+            </div>
+            <div style="height: 1px;width: 500px;background-color: #000;opacity: 0.4;margin: 15px 40px"></div>
+            <div class="htglmain" id="yhglmain" style="display: none">
+                <div style="font-size: 18px;opacity: 0.8;color: #ffb95d">管理用户权限</div>
+                <div style="width: 500px;min-height: 150px;background-color: #eeeeee;margin-top: 20px;padding: 20px;border-radius: 10px">
+                    <div>
+                        <span>用户ID：</span>
+                        <span>
+                            <input type="text" title="" style="border-radius: 5px" id="yonghuid">
+                        </span>
+                        <span style="margin-left: 20px" id="chaxunquanxian">
+                            <input type="button" value="查询该用户权限" style="border-radius: 5px">
+                        </span>
+                    </div>
+                    <div style="margin-top: 20px" class="chaxunjieguo">
+                        <span>用户权限：</span>
+                        <span id="uquanxian"></span>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <span>修改权限为：</span>
+                        <span>
+                            <input type="text" title="" style="border-radius: 5px" id="xgquanxian">
+                        </span>
+                        <span style="margin-left: 20px" id="xiugaiquanxian">
+                            <input type="button" value="保存" style="border-radius: 5px">
+                        </span>
+                    </div>
+                    <div style="margin-top: 20px;font-size: 13px;opacity: 0.8;text-indent: 26px">说明：用户权限为1，2，3三级，一级最高三级为普通用户权限，最高只能提升至2级权限,二级权限不能修改用户权限。</div>
+                </div>
+                <div></div>
+            </div>
+            <div class="htglmain" id="fsxxmain" style="display: none">
+                <div style="font-size: 18px;opacity: 0.8;color: #ffb95d;">给全体用户发送消息</div>
+                <div style="width: 500px;min-height: 150px;background-color: #eeeeee;margin-top: 20px;padding: 20px;border-radius: 10px">
+                    <div>
+                        <span>消息标题：</span>
+                        <span>
+                            <input type="text" title="" style="border-radius: 5px" id="xiaoxibiaoti">
+                        </span>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <div>消息内容：</div>
+                        <div style="margin-top: 10px">
+                            <textarea id="xiaoxineirong" title="" style="resize: none;height: 100px;width: 400px;border-radius: 5px;display: block" placeholder="256字以内"></textarea>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <span><input type="button" value="发送" id="fasongxiaoxi" style="border-radius: 5px"></span>
+                    </div>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    <div style="clear: both"></div>
+    </div>
+
+{% endblock body %}
+
+{% block script %}
+<script>
+    qmvalobj = $('#qianming');
+    qmval = qmvalobj.val();
+    if(qmval==='' || qmval==='None'){
+        qmvalobj[0].innerHTML='你还没有签名哦，来写一个吧';
+    }
+    $('#baochun').click(function () {
+        dataup = new FormData();
+        u_id = $('#u_id').val();
+        nicheng = $('#nicheng').val();
+        touxiang = $('#touxiang')[0].files[0];
+        nianling = $('#nianling').val();
+        xingbie = $('#xingbie').val();
+        dianhua = $('#dianhua').val();
+        qianming = qmvalobj.val();
+        dataup.append('u_id',u_id);
+        dataup.append('nicheng',nicheng);
+        dataup.append('touxiang',touxiang);
+        dataup.append('nianling',nianling);
+        dataup.append('xingbie',xingbie);
+        dataup.append('dianhua',dianhua);
+        dataup.append('qianming',qianming);
+        dataup.append('mudi','xiugaixinxi');
+        $.ajax({
+            url: "/bkmanage/",
+            data: dataup,
+            type: "Post",
+            cache: false,   //上传文件无需缓存
+            processData: false,  //用于对data参数进行序列化处理 这里必须false
+            contentType: false,   //必须
+            success: function (r) {
+                if(r==='xiugaisucessful'){
+                    alert('保存成功')
+                }
+                else {
+                    alert('请求失败')
+                }
+            }
+        })
+        /*
+        $.post('/bkmanage/',{
+            u_id:u_id,
+            nicheng:nicheng,
+            touxiang:touxiang,
+            nianling:nianling,
+            xingbie:xingbie,
+            dianhua:dianhua,
+            qianming:qianming,
+            mudi:'xiugaixinxi'
+        },function (r) {
+            if(r==='xiugaisucessful'){
+                alert('保存成功')
+            }
+            else {
+                alert('请求失败')
+            }
+        });
+        */
+    });
+
+    orderobjs = $('.order');
+    mudidi = $('#mudidi')[0].innerHTML;
+    mudidiobj = document.getElementById(mudidi);
+    orderobjs.each(function () {
+        idval = $(this).attr('id');
+        if(idval === mudidi){
+            array = $.inArray(this,orderobjs);
+            array+=1;
+            show(array);
+        }
+    });
+    mudidiobj.style.color='#aaf';
+    mudidiobj.style.display='block';
+    orderobjs.click(function () {
+        $(this).css({color:'#aaf'});
+        orderobjs.not(this).css({color:'#000'});
+        array = $.inArray(this,orderobjs);
+        array +=1;
+        show(array);
+    });
+    function show(id) {
+        if(id !== 1){
+            $('.right-main1').css({display:'none'})
+        }
+        $(".qiehuan").hide();
+        str = 'right-main'+id;
+        thisobj = document.getElementsByClassName(str)[0];
+        thisobj = $(thisobj);
+        thisobj.show();
+    }
+
+    $('.shanchu').click(function () {
+        tzid = $(this).next().val();
+        $(this).parent().parent().parent().attr({mudi:'shanchu'});
+        $.post('bkmanage.html',{
+            tzid:tzid,
+            mudi:'shanchutiezi'
+        },function (r) {
+            if(r === 'shanchusucessful'){
+                alert('删除成功');
+                $("div[mudi='shanchu']").hide();
+            }
+            else {
+                alert('请求失败')
+            }
+        });
+    });
+
+    $('.quxiaoshouchang').click(function () {
+        tzid = $(this).next().val();
+        u_id = $('#u_id').val();
+        $(this).parent().parent().parent().attr({mudi:'quxiaoshoucang'});
+        $.post('bkmanage.html',{
+            tzid:tzid,
+            uid:u_id,
+            mudi:'quxiaoshoucang'
+        },function (r) {
+            if(r === 'quxiaoshoucangsucessful'){
+                alert('取消收藏成功');
+                $("div[mudi='quxiaoshoucang']").hide();
+            }
+            else {
+                alert('请求失败')
+            }
+        });
+    });
+
+    wenzhangobj = $('.wenzhang');
+    wenzhangobj.mouseenter(function () {
+        $(this).css({
+            transform:'scale(1,1.02)',
+            border:'2px solid #35a2f4',
+            boxShadow:'5px 8px 10px #888'
+        })
+    });
+    wenzhangobj.mouseleave(function () {
+        $(this).css({
+            transform:'scale(1,1)',
+            border:'none',
+            boxShadow:''
+        })
+    });
+
+    $('.oneorder').click(function () {
+        $(this).css({color:'#f66495'});
+        id = $(this).attr('id');
+        id += 'main';
+        $('.oneorder').not(this).each(function () {
+            $(this).css({color:'#000'});
+            idnow =$(this).attr('id');
+            idnow += 'main';
+            $(document.getElementById(idnow)).hide();
+        });
+        $(document.getElementById(id)).show();
+    });
+
+    $('#chaxunquanxian').click(function () {
+        yonghuid = $('#yonghuid').val();
+        dataup2 = new FormData;
+        dataup2.append('yonghuid',yonghuid);
+        dataup2.append('mudi','chaxunquanxian');
+        if(yonghuid){
+            $.ajax({
+                url:'/bkmanage/',
+                type:'Post',
+                data:dataup2,
+                processData: false,  //用于对data参数进行序列化处理 这里必须false
+                contentType: false,   //必须
+                success:function (r){
+                    if(r !== 'none'){
+                        $('#uquanxian')[0].innerHTML=r;
+                    }
+                    else {
+                        alert('该用户不存在,请输入正确的ID！');
+                    }
+                }
+            })
+        }
+        else {
+            alert('该用户不存在,请输入正确的ID！');
+        }
+    });
+
+    $('#xiugaiquanxian').click(function () {
+        yonghuquanxian = $('#xgquanxian').val();
+        yonghuid = $('#yonghuid').val();
+        dataup3 = new FormData;
+        dataup3.append('yonghuquanxian',yonghuquanxian);
+        dataup3.append('yonghuid',yonghuid);
+        dataup3.append('mudi','xiugaiquanxian');
+        if(yonghuid){
+            $.ajax({
+                url:'/bkmanage/',
+                type:'Post',
+                data:dataup3,
+                processData: false,  //用于对data参数进行序列化处理 这里必须false
+                contentType: false,   //必须
+                success:function (r){
+                    if(r === 'xiugaisuccessful'){
+                        alert('修改成功！');
+                        window.location.reload();
+                    }
+                    else {
+                        alert('修改失败！');
+                    }
+                }
+            })
+        }
+    });
+
+    $('#fasongxiaoxi').click(function () {
+        xiaoxineirong = $('#xiaoxineirong').val();
+        xiaoxibiaoti = $('#xiaoxibiaoti').val();
+        xiaoxifauid = $('#uid').val();
+        dataup4 = new FormData;
+        dataup4.append('xiaoxineirong',xiaoxineirong);
+        dataup4.append('xiaoxibiaoti',xiaoxibiaoti);
+        dataup4.append('xiaoxifauid',xiaoxifauid);
+        dataup4.append('mudi','fasongxiaoxi');
+        if(xiaoxineirong !== '' && xiaoxibiaoti !== ''){
+            $.ajax({
+                url:'/bkmanage/',
+                type:'Post',
+                data:dataup4,
+                processData: false,  //用于对data参数进行序列化处理 这里必须false
+                contentType: false,   //必须
+                success:function (r){
+                    if(r === 'fasongxiaoxisuccessful'){
+                        alert('发送成功！');
+                        window.location.reload();
+                    }
+                    else {
+                        alert('发送失败！');
+                    }
+                }
+            })
+        }
+    });
+    
+    $(window).load(function () {
+        quanxian = $('#userquanxian')[0].innerHTML;
+        if(quanxian <= 2){
+            $('#yonghuguanli').show()
+        }
+        else {
+            $('#yonghuguanli').hide()
+        }
+    });
+</script>
+{% endblock script %}

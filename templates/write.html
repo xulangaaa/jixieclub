@@ -1,0 +1,146 @@
+{% extends 'model2.html' %}
+{% block head %}
+     <style>
+        .write{
+            height: 800px;
+            background-color: #ffffff;
+            width: 800px;
+            margin: 60px auto;
+            outline: solid 10px #CBFEFF;
+            -moz-outline-radius: 10px;
+            border-radius: 5px;
+        }
+        .write div{
+            margin: 15px auto;
+            text-align: center;
+        }
+        .write div input{
+            border: 1px solid #888;
+            height: 30px;
+            width: 470px;
+            background-color: #eee;
+            border-radius: 5px;
+            color: #555;
+        }
+        #shurukuang{
+            border: solid 1px #333;
+            border-radius: 4px;
+            height: 300px;
+            width: 450px;
+            padding: 5px 10px;
+            outline: none;
+            resize: none;
+            color: #555;
+        }
+        .jiancejieguo{
+            height: 20px;
+            margin: 5px auto;
+            font-size: 13px;
+            /* color: #f66495; */
+            line-height: 20px;
+            color: #fff;
+        }
+
+    </style>
+{% endblock head %}
+
+{% block body %}
+    <div class="write">
+        <div style="font-size: 38px;font-weight: 500;color: #555;height: 50px">写帖子</div>
+        <form action="/write/" method="post" enctype="multipart/form-data">
+        <div class="zhucetext">
+            {% for i in userobj %}
+            <div><input name="xtz_user" title="" style="display: none" type="text" value="{{ i.id }}"></div>
+            {% endfor %}
+            <div style="margin-top: 60px"><input name="tz_title" id="tz_title" title="" type="text" value="请输入帖子标题"></div>
+            <div class="jiancejieguo" id="jiancejieguo1">请输入要写的帖子标题呀</div>
+            <div>
+                <textarea id="shurukuang" name="tz_text" placeholder="请输入帖子的内容，500字以内。" title=""></textarea>
+            </div>
+            <div class="jiancejieguo" id="jiancejieguo2">请输入要写的帖子标题呀</div>
+            <div style="margin: auto auto -10px auto">选择帖子的图片，可以不选:</div>
+            <div><input type="file" name="tz_img"></div>
+            <div style="float: left;margin-left: 28%;"><input id="button1" style="width: 126px;background-color: #00a7de;color: #eee" title="" type="submit" value="确定"></div>
+            <div style="float: left;margin-left: 10%;"><a href="/write/" style="text-decoration: none"><input id="button2" style="width: 126px" title="" type="reset" value="重置"></a></div>
+            <div style="color: #00bee7"></div>
+        </div>
+        </form>
+    </div>
+{% endblock body %}
+
+{% block script %}
+<script>
+
+    botton1obg1 = document.getElementById('button1');
+    botton1obg1.onmouseover=function(){
+        this.style.backgroundColor='#00bee7'
+    };
+    botton1obg1.onmouseout=function(){
+        this.style.backgroundColor='#00a7de'
+    };
+    botton1obg2 = document.getElementById('button2');
+    botton1obg2.onmouseover=function(){
+        this.style.backgroundColor='#ccc'
+    };
+    botton1obg2.onmouseout=function(){
+        this.style.backgroundColor='#eee'
+    };
+
+    tz_titleobj = document.getElementById('tz_title');
+    jiancejieguo1obj1 = document.getElementById('jiancejieguo1');
+    tz_titleobj.onfocus = function(){
+        v1 = this.value;
+        if(v1==='请输入帖子标题'){
+            this.value='';
+        }
+    };
+    tz_titleobj.onblur = function (){
+        v2 = this.value;
+        if(v2 === ''){
+            this.value='请输入帖子标题';
+            jiancejieguo1obj1.style.color='#f66495'
+        }
+        else {
+            jiancejieguo1obj1.style.color='';
+        }
+    };
+    shurukuangobj = document.getElementById('shurukuang');
+    jiancejieguo1obj2 = document.getElementById('jiancejieguo2');
+    shurukuangobj.onfocus = function(){
+        v1 = this.placeholder;
+        if(v1==='请输入帖子的内容，500字以内。'){
+            this.placeholder='';
+            this.style.fontSize='16px';
+            this.style.color='#000';
+        }
+    };
+    shurukuangobj.onblur = function (){
+        v2 = this.value;
+        if(v2 === ''){
+            this.placeholder='请输入帖子的内容，500字以内。';
+            this.style.fontSize='13px';
+            this.style.color='#555';
+            jiancejieguo1obj2.style.color='#f66495'
+        }
+        else {
+            jiancejieguo1obj2.style.color='';
+        }
+    };
+    botton1obg2.onclick=function () {
+        jiancejieguo1obj1.style.color='';
+        jiancejieguo1obj2.style.color='';
+    };
+    botton1obg1.onclick=function () {
+        if(jiancejieguo1obj1.style.color==='' && jiancejieguo1obj2.style.color==='' ){
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+
+
+
+</script>
+
+{% endblock script %}

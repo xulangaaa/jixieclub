@@ -1,0 +1,276 @@
+{% extends 'model.html' %}
+{% block head %}
+    <style>
+        .zhuce{
+            height: 600px;
+            width: 800px;
+            background-color: #ffffff;
+            opacity: 0.8;
+            margin: 60px auto;
+            outline: solid 10px #CBFEFF;
+            -moz-outline-radius: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .button{
+            border: 1px solid #888;
+            height: 30px;
+            width: 400px;
+            background-color: #eee;
+            border-radius: 5px;
+            color: #555;
+        }
+
+        .zhucex{
+            border: 1px solid #888;
+            height: 30px;
+            width: 400px;
+            background-color: #eee;
+            border-radius: 5px;
+            color: #555;
+            text-indent: 10px;
+        }
+        .xuanze{
+            border: 1px solid #888;
+            height: 30px;
+            width: 402px;
+            background-color: #eee;
+            border-radius: 5px;
+            color: #555;
+            margin: 0 auto;
+            text-align: left;
+            line-height: 30px;
+            text-indent: 10px;
+            font-size: 14px;
+        }
+
+        .jiancejieguo{
+            height: 20px;
+            margin: 5px auto;
+            font-size: 13px;
+            /* color: #f66495; */
+            line-height: 20px;
+            color: #fff;
+        }
+        #chongfu{
+            height: 20px;
+            margin: 5px auto;
+            font-size: 13px;
+            /* color: #f66495; */
+            line-height: 20px;
+            color: #fff;
+        }
+
+    </style>
+{% endblock head %}
+
+{% block body %}
+
+    <div class="zhuce">
+        <div style="font-size: 38px;font-weight: 500;color: #555;height: 50px">注册</div>
+        <form action="/zhuce/" method="post">
+        <div class="zhucetext">
+            <div style="margin-top: 6%" id="chongfu">该用户名已存在</div>
+            <div><input name="user_zhuce" id="user" class="zhucex" title="" type="text" value="请输入您的用户名"></div>
+            <div class="jiancejieguo">请输入要注册的用户名呀</div>
+            <div><input name="password_zhuce" class="zhucex" id="pwd" title="" type="text" value="请输入您的密码"></div>
+            <div class="jiancejieguo">喵，你没输入密码么？</div>
+            <div><input name="password_queren_zhuce" class="zhucex" id="repwd" title="" type="text" value="请确认您的密码"></div>
+            <div class="jiancejieguo">喵，两次输入的密码不一样呀</div>
+            <div class="xuanze">
+                请选择您的性别:
+                <label style="margin-left: 60px"><input class="xingbie" name="xingbie_zhuce" type='radio' value='男'> 男</label>
+                <label style="margin-left: 30px"><input class="xingbie" name="xingbie_zhuce" type='radio' value='女'> 女</label>
+            </div>
+            <div class="jiancejieguo">喵，你没选择性别么？</div>
+            <div><input name="shoujihao_zhuce" class="zhucex" id="tel" title="" type="text" value="请输入您的手机号"></div>
+            <div class="jiancejieguo">喵，你没输入手机号么？</div>
+            <div style="float: left;margin-left: 28%;"><input class="button" id="button1" style="width: 126px;background-color: #00a7de;color: #eee;cursor: pointer" title="" type="submit" value="确定"></div>
+            <div style="float: left;margin-left: 10%;"><a href="/zhuce/" style="text-decoration: none"><input class="button" id="button2" style="width: 126px;cursor: pointer" title="" type="reset" value="重置"></a></div>
+            <div style="color: #00bee7"></div>
+        </div>
+        </form>
+    </div>
+
+{% endblock body %}
+
+{% block script %}
+<script>
+
+    window.onload=function () {
+        valueslist =[];
+        for (i1=1;i1<5;i1++){
+            obj = document.getElementById('zc'+i1);
+            valueslist[i1]=obj.value;
+        }
+        userobj=document.getElementById('user');
+        if(userobj!==null){
+            user=userobj.innerHTML;
+            if( user==='cuowuuser') {
+                document.getElementById('chongfu').style.color='#f66495';
+            }
+        }
+    };
+
+    botton1obg1 = document.getElementById('button1');
+    botton1obg1.onmouseover=function(){
+        this.style.backgroundColor='#00bee7'
+    };
+    botton1obg1.onmouseout=function(){
+        this.style.backgroundColor='#00a7de'
+    };
+
+    botton1obg2 = document.getElementById('button2');
+    botton1obg2.onmouseover=function(){
+        this.style.backgroundColor='#ccc'
+    };
+    botton1obg2.onmouseout=function(){
+        this.style.backgroundColor='#eee'
+    };
+
+    userobj = $('#user');
+    userobj.parent().next().attr({s:0});
+    userobj.focus(function(){
+        val = $(this).val();
+        if(val==='请输入您的用户名'){
+            $(this).val("");
+            $(this).parent().next().attr({s:0});
+        }
+    });
+    userobj.blur(function(){
+        val = $(this).val();
+        if(val===''|| val==='请输入您的用户名'){
+            $(this).val("请输入您的用户名");
+            $(this).parent().next().css({color:'#f66495'});
+            $(this).parent().next().attr({s:0});
+        }
+        else {
+            $(this).parent().next().css({color:'#fff'});
+            $(this).parent().next().attr({s:1});
+        }
+    });
+
+    pwdobj=$('#pwd');
+    pwdobj.parent().next().attr({s:0});
+    pwdobj.focus(function () {
+        this.type='password';
+        $(this).parent().next().attr({s:0});
+        val = $(this).val();
+        if(val==='请输入您的密码'){
+            $(this).val("");
+            $(this).parent().next().attr({s:0});
+        }
+    });
+    pwdobj.blur(function () {
+        val = $(this).val();
+        if(val==='' || val==='请输入您的密码'){
+            this.type='text';
+            $(this).val("请输入您的密码");
+            $(this).parent().next().css({color:'#f66495'});
+            $(this).parent().next().attr({s:0});
+        }
+        else {
+            $(this).parent().next().css({color:'#fff'});
+            $(this).parent().next().attr({s:1});
+        }
+    });
+
+    repwdobj=$('#repwd');
+    repwdobj.parent().next().attr({s:0});
+    repwdobj.focus(function () {
+        this.type='password';
+        $(this).parent().next().attr({s:0});
+        val = $(this).val();
+        if(val==='请确认您的密码'){
+            $(this).val("");
+            $(this).parent().next().attr({s:0});
+        }
+    });
+    repwdobj.blur(function () {
+        val = pwdobj.val();
+        reval = $(this).val();
+        if(reval===''){
+            this.type='text';
+            $(this).val("请确认您的密码");
+            $(this).parent().next().css({color:'#f66495'});
+            $(this).parent().next().attr({s:0});
+        }
+        else if(val!==reval){
+            $(this).parent().next().css({color:'#f66495'});
+            $(this).parent().next().attr({s:0});
+        }
+        else {
+            $(this).parent().next().css({color:'#fff'});
+            $(this).parent().next().attr({s:1});
+        }
+    });
+
+    xingbieobj = $('.xingbie');
+    xingbieobj.parent().parent().next().attr({s:0});
+    xingbieobj.blur(function () {
+        val0 = xingbieobj[0].checked;
+        val1 = xingbieobj[1].checked;
+        if(val0===true || val1===true){
+            $(this).parent().parent().next().attr({s:1});
+            $(this).parent().parent().next().css({color:'#fff'})
+        }
+        else {
+            $(this).parent().parent().next().css({color:'#f66495'});
+            $(this).parent().next().attr({s:0});
+        }
+    });
+
+    telobj = $('#tel').focus(function () {
+        $(this).parent().next()[0].innerHTML="喵，你没输入手机号么？";
+        $(this).parent().next().attr({s:0});
+        val = $(this).val();
+        if(val==='请输入您的手机号'){
+            $(this).val("");
+            $(this).parent().next().attr({s:0});
+        }
+    });
+    telobj.parent().next().attr({s:0});
+    telobj.blur(function () {
+        val = $(this).val();
+        if(val==='' || val==='请输入您的手机号'){
+            $(this).val("请输入您的手机号");
+            $(this).parent().next().css({color:'#f66495'});
+            $(this).parent().next().attr({s:0});
+        }
+        else if(val.length!==11){
+            $(this).parent().next()[0].innerHTML='手机号应为11位数字';
+            $(this).parent().next().css({color:'#f66495'});
+            $(this).parent().next().attr({s:0});
+        }
+        else {
+            $(this).parent().next().css({color:'#fff'});
+            $(this).parent().next().attr({s:1});
+        }
+    });
+
+    $('#button1').click(function () {
+        $('.zhucex').blur();
+        xingbieobj.blur();
+        jianceobjs = $('.jiancejieguo');
+        cs=0;
+        $.each(jianceobjs,function () {
+            s=$(this).attr('s');
+            s=parseInt(s);
+            cs+=s;
+        });
+        if(cs!==5){
+            return false;
+        }
+        else {
+            return true;
+        }
+    });
+
+    // 让网页中的文字不能被选中
+    document.body.onselectstart=document.body.ondrag=function(){
+        return false;
+    };
+</script>
+
+{% endblock script %}

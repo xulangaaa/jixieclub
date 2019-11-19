@@ -1,0 +1,347 @@
+{% extends 'model2.html' %}
+{% block head %}
+    <style>
+     .dhimg{
+            margin: 35px auto 35px;
+            width: 1280px;
+            height: 320px;
+            background-color: #e9eef4;
+        }
+
+        .dhimg div{
+            float: left;
+            margin: 0 13px;
+        }
+        .dhimg div div{ margin-left: 0}
+        .dhimg div img{
+            display: block;
+            border: solid 1px #4ed1ff;
+            border-radius: 5px;
+            width: 320px;
+            height: 80px;
+        }
+
+        .main{
+            margin: 0 auto 30px;
+            width: 1280px;
+            height: 100%;
+            background-color: #e9eef4;
+        }
+        .main-left{
+            float: right;
+            width: 850px;
+            background-color: #fff;
+        }
+        .main-top a div{
+            float: left;
+            width: 100px;
+            line-height: 40px;
+            text-align: center;
+        }
+        .main-top a{
+            text-decoration: none;
+            color: #888;
+        }
+        .main-top div:hover{
+            border-bottom: 2px solid #9999ff;
+            color: #9999ff;
+        }
+
+        .main-right{
+            float: right;
+            width: 340px;
+            height: 500px;
+            background-color: #e9eef4;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .reyitiezi{
+            width: 320px;
+            height: 50px;
+            color: #000;
+            opacity: 0.7;
+            font-size: 13px;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+        .reyitiezi div{
+            float: left;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+        .reyitiezi div img{
+            width: 36px;
+            height: 36px;
+            display: block;
+        }
+        .dingyue{
+            width: 320px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .wenzhang{
+            height: 120px;
+            width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .wenzhang div{
+            float:left;
+            margin: 5px 12px;
+            color: #666666;
+        }
+
+        .wenzhang div img{
+            height: 120px;
+            width: 180px;
+            display: block;
+            border-radius: 5px;
+        }
+
+
+
+        #i2{
+            border: 1px solid #888;
+            height: 35px;
+            width: 260px;
+            background-color: #eee;
+            border-radius: 5px;
+            color: #888;
+        }
+        #i3{
+            height: 35px;
+            width: 260px;
+            background-color: #35a2f4;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .fenye{
+            height: 50px;
+            color: #888;
+            margin: 60px 20px;
+
+        }
+        .fenye div{
+            float: left;
+            line-height: 50px;
+            text-align: center;
+
+        }
+        .yema{
+            text-decoration: none;
+            color: #888;
+        }
+        .yema div{
+            margin: 0 auto;
+            width: 50px;
+        }
+    </style>
+{% endblock head %}
+
+{% block body %}
+    <div class="dhimg">
+        {% for i in suijitzlist.0 %}
+        <div><a href="/luntan/?tz_id={{ i.id }}" target="_blank"><img class="di1" src="{{ i.tz_img }}" style="width: 480px;height: 320px"></a></div>
+        {% endfor %}
+        <div style="width: 360px;" >
+            {% for i in suijitzlist.1 %}
+                <div style="margin-bottom: 10px"><a href="/luntan/?tz_id={{ i.id }}" target="_blank"><img class="di2" src="{{ i.tz_img }}" style="width: 360px;height: 155px"></a></div>
+            {% endfor %}
+        </div>
+        <div style="width: 360px;height: 320px">
+            {% for i in suijitzlist.2 %}
+                <div><a href="/luntan/?tz_id={{ i.id }}" target="_blank"><img class="di3" src="{{ i.tz_img }}" ></a></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="main">
+        <div class="main-right" style="margin-right: 30px;border-radius: 5px">
+            <div style="width: 340px;background-color: #fff;margin: 0 auto;border-radius: 5px">
+                <div style="text-indent: 28px;line-height: 30px">今日社区热议主题</div>
+                {% for i in reyitiezi %}
+                <a href="/luntan/?tz_id={{ i.id }}" target="_blank"><div class="reyitiezi">
+                    <div><img src="{{ i.tz_img }}"></div>
+                    <div style="width: 220px">{{ i.tz_title }}</div>
+                </div></a>
+                {% endfor %}
+                <div style="clear: both"></div>
+            </div>
+            <div style="width: 340px;background-color: #fff;margin: 30px auto auto 0;border-radius: 5px">
+                <div style="text-indent: 28px;line-height: 30px">订阅精选资讯和热门话题</div>
+                <div class="dingyue">
+                    <div style="margin-top: 10px;margin-left: 10px"><input id="i2" title="" type="search" value="Email Address"></div>
+                    <div style="margin-top: 15px;margin-left: 10px"><input id="i3" title="" type="button" value="订阅"></div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+        <div class="main-left" style="margin-right: 37px;border-radius: 5px">
+            <div class="main-top" style="height: 40px">
+                <a href=""><div>全部</div></a>
+                <a href=""><div>以太进展</div></a>
+                <a href=""><div>以太生态</div></a>
+                <a href=""><div>社区新闻</div></a>
+                <a href=""><div>技术讨论</div></a>
+                <a href=""><div>dAPP</div></a>
+                <a href=""><div>区块链经济学</div></a>
+            </div>
+            {% for i in tieziobj %}
+            <div class="wenzhang"><a href="/luntan/?tz_id={{ i.id }}" target="_blank"><div style="margin-top: 0">
+                    <div style="display: none">{{ i.id }}</div>
+                    <div style="margin: 0"><img  src="{{ i.tz_img }}"></div>
+                    <div style="height: 20px;margin-top: 10px;line-height: 20px;font-weight: 500;font-size: 18px">{{ i.tz_title }}</div>
+                    <div style="width: 500px;height: 40px;line-height: 20px;font-size: 14px;font-weight: 300;text-indent: 28px">{{ i.tz_text }}. . .  </div>
+                    <div>{{ i.tzu_id.u_name }}</div>
+                    <div>{{ i.tz_riqi }}</div>
+                    <div>浏览：{{ i.tz_liulan }}</div>
+                    <div>回复：{{ i.tz_huifu }}</div>
+                    <div>收藏：{{ i.tz_shoucang }}</div>
+                    <div><span class="shanchutz" style="color: #f66495;cursor: pointer;display: none">删除</span></div>
+                </div></a>
+            </div>
+            {% endfor %}
+            <div class="fenye">
+                <div id="page" style="display: none">{{ page }}</div>
+                <div id="yeshu" style="display: none">{{ yeshu }}</div>
+                <a href="/index/?page={{ page }}&&pagechange=shangyiye" class="yema"><div style="margin-left: 160px">上一页</div></a>
+                <div class="fenyeyeshu" style="width: 300px;margin-left: 60px"></div>
+                <a href="/index/?page={{ page }}&&pagechange=xiayiye" class="yema"><div>下一页</div></a>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+{% endblock body %}
+{% block script %}
+<script>
+    inputobj2 = document.getElementById('i2');
+    inputobj2.onfocus=function(){
+        this.value='';
+        this.style.border='1px solid #88f'
+    };
+    inputobj2.onblur=function(){
+        this.value='Email Address';
+        this.style.border='1px solid #888'
+    };
+
+    inputobj3 = document.getElementById('i3');
+    inputobj3.onmouseover=function(){
+        this.style.backgroundColor='#0d8be9'
+    };
+    inputobj3.onmouseout=function(){
+        this.style.backgroundColor='#35a2f4'
+    };
+
+    di1obj = $('.di1,.di2').mouseenter(function () {
+        $(this).css({transform:'scale(1,1.02)',boxShadow:'5px 10px 20px #888'})
+    });
+    di1obj.mouseleave(function () {
+        $(this).css({transform:'scale(1,1)',boxShadow:''})
+    });
+
+    di3obj = $('.di3');
+    di3obj.mouseenter(function () {
+        $(this).css({height:'170px',boxShadow:'5px 10px 20px #888'});
+        height = $(this).css('height');
+        di3obj.each(function () {
+            h = $(this).css('height');
+            if (h!==height){
+                $(this).css({height:'50px'});
+            }
+        });
+    });
+    di3obj.mouseleave(function () {
+        $(this).css({height:'80px',boxShadow:''});
+        height = $(this).css('height');
+        di3obj.each(function () {
+            h = $(this).css('height');
+            if (h!==height){
+                $(this).css({height:'80px'});
+            }
+        });
+    });
+
+    wenzhangobj = $('.wenzhang');
+    wenzhangobj.mouseenter(function () {
+        $(this).css({
+            transform:'scale(1,1.02)',
+            border:'2px solid #35a2f4',
+            boxShadow:'5px 8px 10px #888'
+        })
+    });
+    wenzhangobj.mouseleave(function () {
+        $(this).css({
+            transform:'scale(1,1)',
+            border:'none',
+            boxShadow:''
+        })
+    });
+
+
+    reyitieziobjs = document.getElementsByClassName('reyitiezi');
+    for(i=0;i<reyitieziobjs.length;i++){
+        reyitieziobj = reyitieziobjs[i];
+        reyitieziobj.onmouseover=function(){
+            this.style.transform='scale(1,1.02)';
+            this.style.border='2px solid #35a2f4';
+            this.style.boxShadow='5px 8px 10px #888';
+        };
+        reyitieziobj.onmouseout=function(){
+            this.style.transform='scale(1,1)';
+            this.style.border='none';
+            this.style.boxShadow='';
+        };
+    }
+
+    //点击删除帖子
+    $('.shanchutz').click(function () {
+        tieziid = $(this).parent().parent()[0].firstElementChild.innerHTML;
+        $.post('/luntan/',{
+            tieziid:tieziid,
+            mudi:'shanchutz'
+        },function (r) {
+            if(r==='shanchutzsuccessful'){
+                window.location.reload();
+            }
+            else {
+                alert('删除失败!')
+            }
+        });
+        return false
+    });
+
+    window.onload=function () {
+        fenyeyeshuobj = document.getElementsByClassName('fenyeyeshu');
+        page = document.getElementById('page').innerHTML;
+        yeshu = document.getElementById('yeshu').innerHTML;
+        for (i=1;i<=yeshu;i++){
+            aobj = document.createElement('a');
+            divobj = document.createElement('div');
+            divobj.innerHTML=i;
+            aobj.appendChild(divobj);
+            if(i == page){
+                divobj.style.borderRadius='30px';
+                divobj.style.border='1px solid ';
+            }
+            aobj.classList.add('yema');
+            aobj.href='/index/?page='+i;
+            fenyeyeshuobj[0].appendChild(aobj);
+        }
+
+        //判断权限
+        quanxian = 3;
+        quanxian = $('#userquanxian')[0].innerHTML;
+        if(quanxian <= 2){
+            $('.shanchutz').show();
+        }
+        else {
+            $('.shanchutz').hide();
+        }
+    };
+
+</script>
+{% endblock script %}
